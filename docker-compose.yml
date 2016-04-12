@@ -1,0 +1,11 @@
+emacs:
+  image: emacs
+  ports:
+   - "8889:8889"
+  volumes:
+   - ./.m2:/home/python/.m2
+   - ..:/home/python/work
+   - ~/.gitconfig:/home/python/.gitconfig
+  environment:
+    #change me probably
+    - DISPLAY=10.0.0.7:0
