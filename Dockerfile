@@ -64,7 +64,7 @@ ADD emacs-python.yml /home/python/
 
 RUN conda install -y -n root jedi rope flake8 pylint pip jupyter_client ipykernel jupyter_console
 
-RUN pip install epc
+RUN pip install epc importmagic autopep8 yapf
 
 WORKDIR $HOME/.emacs.d/git
 
