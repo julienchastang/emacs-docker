@@ -42,4 +42,4 @@ docker --tlsverify=false run \
        -v ${PWD}/.m2:/home/python/.m2 \
        -v ${VOLUME}:/home/python/work \
        -v ~/.gitconfig:/home/python/.gitconfig \
-       -p 8889:8889 -e DISPLAY=${IP} --rm -it emacs
+       -p 8889:8889 -e DISPLAY=${IP} --rm -it julienchastang/emacs
