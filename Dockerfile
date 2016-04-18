@@ -82,6 +82,10 @@ RUN rm -rf dotemacs && git clone -b python \
 RUN rm -rf org-mode && git clone --branch release_8.3.3 \
     git://orgmode.org/org-mode.git
 
+# yasnippet'
+RUN rm -rf yasnippet-snippets && git clone \
+    https://github.com/AndreaCrotti/yasnippet-snippets 
+
 # Must manually curate some emacs packages not in melpa-stable
 
 # ob-ipython
