@@ -79,7 +79,7 @@ RUN rm -rf dotemacs && git clone -b python \
     https://github.com/julienchastang/dotemacs
 
 # org mode
-RUN rm -rf org-mode && git clone --branch release_8.3.3 \
+RUN rm -rf org-mode && git clone --branch release_8.3.4 \
     git://orgmode.org/org-mode.git
 
 # yasnippet'
