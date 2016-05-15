@@ -14,7 +14,7 @@ USER root
 
 RUN apt-get update
 
-RUN apt-get install -y tar curl git gawk emacs
+RUN apt-get install -y tar curl git gawk emacs install-info
 
 ###
 # various emacs ancillary programs
@@ -62,7 +62,7 @@ ADD emacs-python.yml /home/python/
 
 # RUN conda env update --name root -f /home/python/emacs-python.yml
 
-RUN conda install -y -n root jedi rope flake8 pylint pip jupyter_client ipykernel jupyter_console
+RUN conda install -y -n root jedi rope flake8 pylint pip jupyter_client ipykernel jupyter_console sphinx
 
 RUN pip install epc importmagic autopep8 yapf
 
@@ -75,24 +75,28 @@ WORKDIR $HOME/.emacs.d/git
 USER root
 
 # emacs config
-RUN rm -rf dotemacs && git clone -b python \
-    https://github.com/julienchastang/dotemacs
+RUN  git clone -b python https://github.com/julienchastang/dotemacs
 
 # org mode
-RUN rm -rf org-mode && git clone --branch release_8.3.4 \
-    git://orgmode.org/org-mode.git
+RUN  git clone --branch release_8.3.4 git://orgmode.org/org-mode.git
 
 # yasnippet'
-RUN rm -rf yasnippet-snippets && git clone \
-    https://github.com/AndreaCrotti/yasnippet-snippets 
+RUN  git clone https://github.com/AndreaCrotti/yasnippet-snippets
+
+# texinfo
+RUN git clone https://github.com/julienchastang/texinfo /usr/share/info/jctexinfo
+
+ADD dir-python /tmp
+
+RUN cat /tmp/dir-python >> /usr/share/info/dir
 
 # Must manually curate some emacs packages not in melpa-stable
 
 # ob-ipython
-RUN rm -rf ob-ipython &&  git clone https://github.com/gregsexton/ob-ipython
+RUN git clone https://github.com/gregsexton/ob-ipython
 
 # emacs-rotate
-RUN rm -rf emacs-rotate && git clone https://github.com/daic-h/emacs-rotate
+RUN git clone https://github.com/daic-h/emacs-rotate
 
 # build org mode
 WORKDIR $HOME/.emacs.d/git/org-mode

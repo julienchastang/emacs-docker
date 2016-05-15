@@ -12,3 +12,4 @@
    - jupyter_client
    - ipykernel
    - jupyter_console
+   - sphinx
