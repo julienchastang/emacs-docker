@@ -14,7 +14,7 @@ USER root
 
 RUN apt-get update
 
-RUN apt-get install -y tar curl git gawk emacs install-info
+RUN apt-get install -y tar curl git gawk emacs install-info texinfo
 
 ###
 # various emacs ancillary programs
