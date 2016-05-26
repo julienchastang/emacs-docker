@@ -58,7 +58,7 @@ USER python
 
 WORKDIR /home/python
 
-ADD emacs-python.yml /home/python/
+ADD emacs-python.yml $WORKDIR/
 
 # RUN conda env update --name root -f /home/python/emacs-python.yml
 
@@ -86,7 +86,7 @@ RUN  git clone https://github.com/AndreaCrotti/yasnippet-snippets
 # texinfo
 RUN git clone https://github.com/julienchastang/texinfo /usr/share/info/jctexinfo
 
-ADD dir-python $HOME
+ADD dir-python $HOME/
 
 RUN cat $HOME/dir-python >> /usr/share/info/dir
 
