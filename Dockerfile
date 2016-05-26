@@ -86,9 +86,9 @@ RUN  git clone https://github.com/AndreaCrotti/yasnippet-snippets
 # texinfo
 RUN git clone https://github.com/julienchastang/texinfo /usr/share/info/jctexinfo
 
-ADD dir-python /tmp
+ADD dir-python $HOME
 
-RUN cat /tmp/dir-python >> /usr/share/info/dir
+RUN cat $HOME/dir-python >> /usr/share/info/dir
 
 # Must manually curate some emacs packages not in melpa-stable
 
