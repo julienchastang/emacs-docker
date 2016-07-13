@@ -92,13 +92,8 @@ RUN cat $HOME/dir-info >> /usr/share/info/dir
 
 # Must manually curate some emacs packages not in melpa-stable
 
-# ob-ipython
-RUN git clone https://github.com/gregsexton/ob-ipython
-
-# emacs-rotate
 RUN git clone https://github.com/daic-h/emacs-rotate
 
-# title-capitalization.el
 RUN git clone -b provide https://github.com/julienchastang/title-capitalization.el
 
 # build org mode
