@@ -94,7 +94,7 @@ RUN cat $HOME/dir-info >> /usr/share/info/dir
 
 RUN git clone https://github.com/daic-h/emacs-rotate
 
-RUN git clone -b provide https://github.com/julienchastang/title-capitalization.el
+RUN git clone https://github.com/novoid/title-capitalization.el
 
 # build org mode
 WORKDIR $HOME/.emacs.d/git/org-mode
