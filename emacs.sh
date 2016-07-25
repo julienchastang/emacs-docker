@@ -36,10 +36,11 @@ do
 done
 
 # Maven / Clojure deps
-mkdir -p ${PWD}/.m2
+MAVEN=${HOME}/.m2
+mkdir -p ${MAVEN}
 
 docker --tlsverify=false run \
-       -v ${PWD}/.m2:/home/python/.m2 \
+       -v ${MAVEN}:/home/python/.m2 \
        -v ${VOLUME}:/home/python/work \
        -v ~/.gitconfig:/home/python/.gitconfig \
        -p 8889:8889 -e DISPLAY=${IP} --rm -it julienchastang/emacs
