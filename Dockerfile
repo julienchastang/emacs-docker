@@ -56,13 +56,9 @@ ENV CURL_CA_BUNDLE /etc/ssl/certs/ca-certificates.crt
 
 USER python
 
-WORKDIR /home/python
+ADD emacs-python.yml $HOME/
 
-ADD emacs-python.yml $WORKDIR/
-
-# RUN conda env update --name root -f /home/python/emacs-python.yml
-
-RUN conda install -y -n root jedi rope flake8 pylint pip jupyter_client ipykernel jupyter_console sphinx
+RUN conda env update --name root -f $HOME/emacs-python.yml
 
 RUN pip install epc importmagic autopep8 yapf
 
