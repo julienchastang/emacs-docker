@@ -12,6 +12,9 @@ MAINTAINER Julien Chastang <chastang@ucar.edu>
 
 USER root
 
+# temporarily remove conda b/c conda causes problems with apt-get 
+ENV PATH ${PATH#/home/python/anaconda/bin:}
+
 RUN apt-get update
 
 RUN apt-get install -y tar curl git gawk emacs install-info texinfo
@@ -156,5 +159,7 @@ RUN chown -R python:python $HOME/
 ###
 
 USER python
+
+ENV PATH $HOME/anaconda/bin:$PATH
 
 CMD bash
