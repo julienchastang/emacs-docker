@@ -3,6 +3,8 @@
 # platform: linux-64
 
  name: root
+ channels:
+   - https://conda.anaconda.org/conda-forge
  dependencies:
    - jedi
    - rope
