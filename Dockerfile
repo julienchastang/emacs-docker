@@ -78,7 +78,7 @@ USER root
 RUN  git clone -b python https://github.com/julienchastang/dotemacs
 
 # org mode
-RUN  git clone --branch release_8.3.4 git://orgmode.org/org-mode.git
+RUN  git clone --branch release_8.3.6 git://orgmode.org/org-mode.git
 
 # yasnippet'
 RUN  git clone https://github.com/AndreaCrotti/yasnippet-snippets
