@@ -13,7 +13,7 @@ MAINTAINER Julien Chastang <chastang@ucar.edu>
 USER root
 
 # temporarily remove conda b/c conda causes problems with apt-get 
-ENV PATH ${PATH#/home/python/anaconda/bin:}
+ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 RUN apt-get update
 
@@ -59,9 +59,14 @@ ENV CURL_CA_BUNDLE /etc/ssl/certs/ca-certificates.crt
 
 USER python
 
+# reinsert conda to path
+ENV PATH $HOME/anaconda/bin:$PATH
+
 ADD emacs-python.yml $HOME/
 
-RUN conda env update --name root -f $HOME/emacs-python.yml
+# RUN conda env update --name root -f $HOME/emacs-python.yml
+
+RUN conda install -y -n root jedi rope flake8 pylint pip jupyter_client ipykernel jupyter_console sphinx
 
 RUN pip install epc importmagic autopep8 yapf
 
@@ -159,7 +164,5 @@ RUN chown -R python:python $HOME/
 ###
 
 USER python
-
-ENV PATH $HOME/anaconda/bin:$PATH
 
 CMD bash
