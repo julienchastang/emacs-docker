@@ -92,6 +92,8 @@ RUN git clone https://github.com/daic-h/emacs-rotate
 
 RUN git clone https://github.com/novoid/title-capitalization.el
 
+RUN git clone https://github.com/julienchastang/emacs-calfw
+
 # build org mode
 WORKDIR $HOME/.emacs.d/git/org-mode
 
