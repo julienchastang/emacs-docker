@@ -67,7 +67,9 @@ ADD emacs-python.yml $HOME/
 # Should work but doesn't
 # RUN conda env update --name root -f $HOME/emacs-python.yml
 
-RUN conda config --add channels conda-forge && conda install -y -n root jedi rope flake8 pylint pip jupyter_client ipykernel jupyter_console sphinx
+RUN conda config --add channels conda-forge && \
+    conda install -y -n root jedi rope flake8 pylint pip jupyter_client ipykernel jupyter_console sphinx && \
+    conda update -y --all
 
 RUN pip install epc importmagic autopep8 yapf
 
