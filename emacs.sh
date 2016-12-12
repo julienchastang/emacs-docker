@@ -13,7 +13,8 @@ PWD=`pwd`
 
 VOLUME=${PWD}/..
 
-IP=$(curl -s https://ip.appspot.com/):0
+IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+xhost + $IP
 
 while [[ $# > 0 ]]
 do
@@ -39,8 +40,10 @@ done
 MAVEN=${HOME}/.m2
 mkdir -p ${MAVEN}
 
-docker --tlsverify=false run \
+docker run --name emacs \
        -v ${MAVEN}:/home/python/.m2 \
+       -v ${HOME}/.ssh:/home/python/.ssh \
        -v ${VOLUME}:/home/python/work \
        -v ~/.gitconfig:/home/python/.gitconfig \
-       -p 8889:8889 -e DISPLAY=${IP} --rm -it julienchastang/emacs
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -e DISPLAY=${IP}:0 --rm -it julienchastang/emacs
