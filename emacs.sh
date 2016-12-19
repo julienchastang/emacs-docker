@@ -13,7 +13,7 @@ PWD=`pwd`
 
 VOLUME=${PWD}/..
 
-IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+IP=$(ifconfig | grep inet | grep broadcast | head -1 | awk '$1=="inet" {print $2}')
 xhost + $IP
 
 while [[ $# > 0 ]]
