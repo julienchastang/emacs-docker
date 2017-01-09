@@ -23,7 +23,7 @@ RUN apt-get install -y tar curl git gawk emacs install-info texinfo
 # various emacs ancillary programs
 ###
 
-RUN apt-get install -y ispell aspell aspell-en hunspell hunspell-en-us ditaa texlive-xetex gnuplot
+RUN apt-get install -y ispell aspell aspell-en hunspell hunspell-en-us ditaa texlive-xetex gnuplot texlive-bibtex-extra latexmk
 
 WORKDIR $HOME
 
