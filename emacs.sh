@@ -5,7 +5,7 @@ script to start emacs:\n
     -h  show this help text\n
     -v, --volume A local host dicrectory that will be bound to the 
 /home/python/work direcotry. The default is the 'PWD/..'.\n
-    -ip, --ip IP address of X11 host. The default is grabbed from 'ip.appspot.com'\n"
+    -ip, --ip IP address of X11 host.\n"
 
 # Set some defaults
 
