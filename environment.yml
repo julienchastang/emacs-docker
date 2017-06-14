@@ -1,0 +1,36 @@
+ name: root
+ channels:
+   - https://conda.anaconda.org/conda-forge
+ dependencies:
+   - python=3
+   - numpy
+   - matplotlib
+   - cartopy
+   - jupyter
+   - netcdf4
+   - libnetcdf!=4.4.1.1
+   - owslib
+   - metpy
+   - pint
+   - shapely
+   - siphon
+   - xarray
+   - pip
+   - ffmpeg
+   - jedi
+   - rope
+   - flake8
+   - pylint
+   - pip
+   - jupyter_client
+   - ipykernel
+   - jupyter_console
+   - sphinx
+   - pip:
+     - python-awips
+     - mpldatacursor
+     - epc
+     - importmagic
+     - autopep8
+     - yapf
+   

@@ -4,7 +4,7 @@ usage="$(basename "$0") [-h] [-v, --volume directory] [-ip, --ip ip address] --
 script to start emacs:\n
     -h  show this help text\n
     -v, --volume A local host dicrectory that will be bound to the 
-/home/python/work direcotry. The default is the 'PWD/..'.\n
+/home/emacs/work direcotry. The default is the 'PWD/..'.\n
     -ip, --ip IP address of X11 host.\n"
 
 # Set some defaults
@@ -41,9 +41,9 @@ MAVEN=${HOME}/.m2
 mkdir -p ${MAVEN}
 
 docker run --name emacs \
-       -v ${MAVEN}:/home/python/.m2 \
-       -v ${HOME}/.ssh:/home/python/.ssh \
-       -v ${VOLUME}:/home/python/work \
-       -v ~/.gitconfig:/home/python/.gitconfig \
+       -v ${MAVEN}:/home/emacs/.m2 \
+       -v ${HOME}/.ssh:/home/emacs/.ssh \
+       -v ${VOLUME}:/home/emacs/work \
+       -v ~/.gitconfig:/home/emacs/.gitconfig \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -e DISPLAY=${IP}:0 --rm -it julienchastang/emacs

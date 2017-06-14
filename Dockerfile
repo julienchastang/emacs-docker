@@ -1,29 +1,38 @@
-###
-# for Python related development
-###
-
-FROM unidata/python
+FROM ubuntu:16.10
 
 MAINTAINER Julien Chastang <chastang@ucar.edu>
 
 ###
-# Usual maintenance
+# anaconda works better with bash
 ###
 
-USER root
-
-# temporarily remove conda b/c conda causes problems with apt-get 
-ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
-RUN apt-get update
-
-RUN apt-get install -y tar curl git gawk emacs install-info texinfo
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 ###
-# various emacs ancillary programs
+# House keeping
 ###
 
-RUN apt-get install -y ispell aspell aspell-en hunspell hunspell-en-us ditaa texlive-xetex gnuplot texlive-bibtex-extra latexmk dvipng
+RUN apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade
+
+###
+# Install some Linux packages
+###
+
+RUN apt-get install -y curl git bzip2 sudo tar git gawk emacs install-info texinfo ispell aspell aspell-en hunspell hunspell-en-us ditaa texlive-xetex gnuplot texlive-bibtex-extra latexmk dvipng
+
+###
+# Set up emacs user account
+###
+
+RUN useradd -ms /bin/bash emacs
+
+RUN adduser emacs sudo
+
+RUN echo "emacs ALL=NOPASSWD: ALL" >> /etc/sudoers
+
+RUN echo 'emacs:docker' | chpasswd
+
+ENV HOME /home/emacs
 
 WORKDIR $HOME
 
@@ -31,13 +40,7 @@ WORKDIR $HOME
 # Create some directories
 ###
 
-RUN mkdir -p $HOME/.emacs.d/git
-
-RUN mkdir -p $HOME/work
-
-RUN mkdir -p $HOME/downloads
-
-RUN mkdir -p $HOME/bin
+RUN mkdir -p $HOME/.emacs.d/git $HOME/work $HOME/downloads $HOME/bin
 
 ###
 # Java
@@ -54,38 +57,37 @@ RUN apt-get install ca-certificates-java
 ENV CURL_CA_BUNDLE /etc/ssl/certs/ca-certificates.crt
 
 ###
-# conda 
+# Install miniconda
 ###
 
-USER python
+RUN mkdir -p $HOME/downloads
 
-# reinsert conda to path
+RUN cd $HOME/downloads && curl -SL \
+  http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o \
+  Miniconda3-latest-Linux-x86_64.sh
+
+RUN /bin/bash $HOME/downloads/Miniconda3-latest-Linux-x86_64.sh -b -p \
+  $HOME/anaconda/
+
 ENV PATH $HOME/anaconda/bin:$PATH
 
-ADD emacs-python.yml $HOME/
+RUN conda update --yes --quiet conda
 
-# Should work but doesn't
-# RUN conda env update --name root -f $HOME/emacs-python.yml
+ADD environment.yml $HOME/
 
-RUN conda config --add channels conda-forge && \
-    conda install -y -n root jedi rope flake8 pylint pip jupyter_client ipykernel jupyter_console sphinx && \
-    conda update -y --all
-
-RUN pip install epc importmagic autopep8 yapf
-
-WORKDIR $HOME/.emacs.d/git
+RUN conda env update --name root -f $HOME/environment.yml
 
 ###
 # Clone various repos
 ###
 
-USER root
+WORKDIR $HOME/.emacs.d/git
 
 # emacs config
 RUN  git clone -b python https://github.com/julienchastang/dotemacs
 
 # org mode
-RUN  git clone --branch release_8.3.6 git://orgmode.org/org-mode.git
+RUN  git clone --branch release_9.0.7 git://orgmode.org/org-mode.git
 
 # yasnippet'
 RUN  git clone https://github.com/AndreaCrotti/yasnippet-snippets
@@ -154,18 +156,16 @@ VOLUME $HOME/work
 # Wrapping up some stuff
 ###
 
-USER root
-
 RUN rm -rf $HOME/downloads/*
 
-ADD .bashrc $HOME/
-
-RUN chown -R python:python $HOME/
+RUN chown -R emacs:emacs $HOME/
 
 ###
 # Start container
 ###
 
-USER python
+USER emacs
+
+ADD .bashrc $HOME/
 
 CMD bash
