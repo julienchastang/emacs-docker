@@ -1,6 +1,6 @@
  name: root
  channels:
-   - https://conda.anaconda.org/conda-forge
+   - conda-forge
  dependencies:
    - python=3
    - numpy
@@ -26,11 +26,4 @@
    - ipykernel
    - jupyter_console
    - sphinx
-   - pip:
-     - python-awips
-     - mpldatacursor
-     - epc
-     - importmagic
-     - autopep8
-     - yapf
-   
+

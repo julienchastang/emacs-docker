@@ -1,4 +1,4 @@
-FROM ubuntu:16.10
+FROM ubuntu:16.04
 
 MAINTAINER Julien Chastang <chastang@ucar.edu>
 
@@ -77,6 +77,10 @@ ADD environment.yml $HOME/
 
 RUN conda env update --name root -f $HOME/environment.yml
 
+ADD pip.txt $HOME/
+
+RUN pip install -r pip.txt
+
 ###
 # Clone various repos
 ###
@@ -87,7 +91,7 @@ WORKDIR $HOME/.emacs.d/git
 RUN  git clone -b python https://github.com/julienchastang/dotemacs
 
 # org mode
-RUN  git clone --branch release_9.0.7 git://orgmode.org/org-mode.git
+RUN  git clone --branch release_9.1.6 https://code.orgmode.org/bzg/org-mode.git
 
 # yasnippet'
 RUN  git clone https://github.com/AndreaCrotti/yasnippet-snippets
@@ -106,6 +110,8 @@ RUN git clone https://github.com/daic-h/emacs-rotate
 RUN git clone https://github.com/novoid/title-capitalization.el
 
 RUN git clone https://github.com/julienchastang/emacs-calfw
+
+RUN git clone https://github.com/rlister/org-present
 
 # build org mode
 WORKDIR $HOME/.emacs.d/git/org-mode
