@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 MAINTAINER Julien Chastang <chastang@ucar.edu>
 
@@ -13,6 +13,14 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 ###
 
 RUN apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade
+
+###
+# Get localization out of the way.
+###
+
+ENV TZ "UTC"
+RUN apt-get install -y tzdata && echo "${TZ}" > /etc/timezone \
+  && dpkg-reconfigure --frontend noninteractive tzdata
 
 ###
 # Install some Linux packages
@@ -40,7 +48,7 @@ WORKDIR $HOME
 # Create some directories
 ###
 
-RUN mkdir -p $HOME/.emacs.d/git $HOME/work $HOME/downloads $HOME/bin
+RUN mkdir -p $HOME/.emacs.d/git $HOME/.emacs.d/wget $HOME/work $HOME/downloads $HOME/bin
 
 ###
 # Java
@@ -77,6 +85,8 @@ ADD environment.yml $HOME/
 
 RUN conda env update --name root -f $HOME/environment.yml
 
+RUN pip install --upgrade pip
+
 ADD pip.txt $HOME/
 
 RUN pip install -r pip.txt
@@ -97,6 +107,10 @@ RUN  git clone --branch release_9.1.6 https://code.orgmode.org/bzg/org-mode.git
 RUN  git clone https://github.com/AndreaCrotti/yasnippet-snippets
 
 # texinfo
+RUN mkdir -p $HOME/.emacs.d/wget/infoplus/ && curl -SL \
+    https://www.emacswiki.org/emacs/download/info%2b.el -o \
+    $HOME/.emacs.d/wget/infoplus/info+.el
+
 RUN git clone https://github.com/julienchastang/texinfo /usr/share/info/jctexinfo
 
 ADD dir-info $HOME/
