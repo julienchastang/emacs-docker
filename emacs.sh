@@ -7,6 +7,11 @@ script to start emacs:\n
 /home/emacs/work direcotry. The default is the 'PWD/..'.\n
     -ip, --ip IP address of X11 host.\n"
 
+
+echo
+echo Did you remember to turn on socat?
+echo
+
 # Set some defaults
 
 PWD=`pwd`
