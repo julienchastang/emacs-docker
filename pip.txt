@@ -1,0 +1,6 @@
+python-awips
+mpldatacursor
+epc
+importmagic
+autopep8
+yapf
