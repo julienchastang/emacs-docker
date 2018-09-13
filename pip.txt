@@ -4,3 +4,4 @@ epc
 importmagic
 autopep8
 yapf
+black
