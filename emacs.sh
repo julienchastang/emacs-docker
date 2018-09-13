@@ -46,6 +46,7 @@ MAVEN=${HOME}/.m2
 mkdir -p ${MAVEN}
 
 docker run --name emacs \
+       --network="host" \
        -v ${MAVEN}:/home/emacs/.m2 \
        -v ${HOME}/.ssh:/home/emacs/.ssh \
        -v ${VOLUME}:/home/emacs/work \
